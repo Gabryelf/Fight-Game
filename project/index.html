@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Fighting Game - Mortal Combat Style</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="game-container">
+        <canvas id="gameCanvas" width="1280" height="720"></canvas>
+        <div class="ui-overlay">
+            <div class="health-bars">
+                <div class="health-bar-container player1-health">
+                    <div class="health-bar-fill" id="player1Health"></div>
+                    <div class="health-label">PLAYER 1</div>
+                </div>
+                <div class="health-bar-container player2-health">
+                    <div class="health-bar-fill" id="player2Health"></div>
+                    <div class="health-label">PLAYER 2</div>
+                </div>
+            </div>
+            <div class="timer-container">
+                <div class="timer" id="timer">99</div>
+            </div>
+            <div class="round-indicator" id="roundIndicator">ROUND 1</div>
+            <div class="game-message" id="gameMessage"></div>
+        </div>
+    </div>
+    
+    <script src="js/config.js"></script>
+    <script src="js/entities/Fighter.js"></script>
+    <script src="js/managers/AnimationManager.js"></script>
+    <script src="js/managers/PlayerManager.js"></script>
+    <script src="js/managers/SceneManager.js"></script>
+    <script src="js/managers/UIManager.js"></script>
+    <script src="js/controllers/InputController.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
