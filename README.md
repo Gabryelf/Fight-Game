@@ -1,5 +1,6 @@
 # Fight-Game
 
+```text
 project/
 │
 ├── index.html
@@ -47,3 +48,5 @@ project/
     ├── sprites/
     ├── sounds/
     └── backgrounds/
+```
+
