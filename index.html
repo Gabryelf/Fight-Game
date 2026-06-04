@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Fighting Arena - Mortal Combat Style</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/ui.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="screen active">
+            <div class="loading-container">
+                <h1>FIGHTING ARENA</h1>
+                <div class="loading-bar-container">
+                    <div class="loading-bar" id="loading-bar"></div>
+                </div>
+                <p id="loading-text">Loading assets... 0%</p>
+            </div>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="menu-screen" class="screen">
+            <div class="menu-container">
+                <h1 class="game-title">FIGHTING ARENA</h1>
+                <div class="menu-buttons">
+                    <button class="menu-btn" id="play-btn">▶ BATTLE</button>
+                    <button class="menu-btn" id="settings-btn">⚙ SETTINGS</button>
+                    <button class="menu-btn" id="credits-btn">ℹ CREDITS</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Character Select Screen -->
+        <div id="select-screen" class="screen">
+            <div class="select-container">
+                <h2>SELECT YOUR WARRIOR</h2>
+                <div class="characters-row">
+                    <div class="character-card" data-character="shadow">
+                        <div class="character-portrait" id="portrait-shadow"></div>
+                        <h3>SHADOW BLADE</h3>
+                        <div class="char-stats">
+                            <span>⚔ ATK: 85</span>
+                            <span>🛡 DEF: 70</span>
+                            <span>❤ HP: 120</span>
+                        </div>
+                        <button class="select-char-btn" data-character="shadow">SELECT P1</button>
+                    </div>
+                    <div class="character-card" data-character="titan">
+                        <div class="character-portrait" id="portrait-titan"></div>
+                        <h3>TITAN FIST</h3>
+                        <div class="char-stats">
+                            <span>⚔ ATK: 75</span>
+                            <span>🛡 DEF: 90</span>
+                            <span>❤ HP: 140</span>
+                        </div>
+                        <button class="select-char-btn" data-character="titan">SELECT P1</button>
+                    </div>
+                </div>
+                <div id="selection-status" class="selection-status">Player 1: Not selected | Player 2: Not selected</div>
+                <button id="start-fight-btn" class="start-fight-btn" disabled>START BATTLE ▶</button>
+                <button id="back-to-menu-btn" class="back-btn">◀ BACK</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <canvas id="game-canvas"></canvas>
+            <div id="game-ui">
+                <div class="health-bars">
+                    <div class="health-bar-container p1-health">
+                        <div class="health-bar-fill" id="p1-health-fill"></div>
+                        <span class="health-text" id="p1-health-text">❤ 120</span>
+                    </div>
+                    <div class="health-bar-container p2-health">
+                        <div class="health-bar-fill" id="p2-health-fill"></div>
+                        <span class="health-text" id="p2-health-text">❤ 120</span>
+                    </div>
+                </div>
+                <div class="cooldown-indicators">
+                    <div class="cooldown-icon" id="p1-cd">⚡ READY</div>
+                    <div class="cooldown-icon" id="p2-cd">⚡ READY</div>
+                </div>
+                <div id="pause-btn" class="pause-btn">⏸ PAUSE</div>
+            </div>
+        </div>
+
+        <!-- Pause Screen -->
+        <div id="pause-screen" class="screen overlay">
+            <div class="pause-container">
+                <h2>GAME PAUSED</h2>
+                <button id="resume-btn" class="pause-menu-btn">▶ RESUME</button>
+                <button id="quit-to-menu-btn" class="pause-menu-btn">🏠 MAIN MENU</button>
+            </div>
+        </div>
+
+        <!-- Victory Screen -->
+        <div id="victory-screen" class="screen overlay">
+            <div class="victory-container">
+                <h1 id="victory-text">VICTORY!</h1>
+                <button id="rematch-btn" class="victory-btn">⚔ REMATCH</button>
+                <button id="victory-menu-btn" class="victory-btn">🏠 MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/config/gameConfig.js"></script>
+    <script src="js/config/charactersConfig.js"></script>
+    <script src="js/core/AssetManager.js"></script>
+    <script src="js/core/InputManager.js"></script>
+    <script src="js/core/Camera.js"></script>
+    <script src="js/entities/EffectManager.js"></script>
+    <script src="js/entities/CharacterData.js"></script>
+    <script src="js/entities/Fighter.js"></script>
+    <script src="js/ui/UIManager.js"></script>
+    <script src="js/ui/CharacterSelect.js"></script>
+    <script src="js/ui/ScreenManager.js"></script>
+    <script src="js/core/GameStateManager.js"></script>
+    <script src="js/core/GameEngine.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
