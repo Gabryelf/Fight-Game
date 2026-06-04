@@ -21,15 +21,6 @@
             playBtn.addEventListener('click', () => this.showScreen('select'));
         }
         
-        const resumeBtn = document.getElementById('resume-btn');
-        if (resumeBtn) {
-            resumeBtn.addEventListener('click', () => {
-                this.hideScreen('pause');
-                const resumeEvent = new CustomEvent('gameResume');
-                document.dispatchEvent(resumeEvent);
-            });
-        }
-        
         const quitBtn = document.getElementById('quit-to-menu-btn');
         if (quitBtn) {
             quitBtn.addEventListener('click', () => {
@@ -64,6 +55,15 @@
                 const pauseEvent = new CustomEvent('gamePause');
                 document.dispatchEvent(pauseEvent);
                 this.showScreen('pause');
+            });
+        }
+        
+        const resumeBtn = document.getElementById('resume-btn');
+        if (resumeBtn) {
+            resumeBtn.addEventListener('click', () => {
+                this.hideScreen('pause');
+                const resumeEvent = new CustomEvent('gameResume');
+                document.dispatchEvent(resumeEvent);
             });
         }
     }

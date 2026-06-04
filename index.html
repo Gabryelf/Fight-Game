@@ -107,19 +107,31 @@
         </div>
     </div>
 
+    <!-- ========== SCRIPTS - CORRECT ORDER ========== -->
+    <!-- Config first (no dependencies) -->
     <script src="js/config/gameConfig.js"></script>
     <script src="js/config/charactersConfig.js"></script>
+    
+    <!-- Core utilities (independent) -->
     <script src="js/core/AssetManager.js"></script>
     <script src="js/core/InputManager.js"></script>
     <script src="js/core/Camera.js"></script>
+    
+    <!-- Entities -->
     <script src="js/entities/EffectManager.js"></script>
     <script src="js/entities/CharacterData.js"></script>
     <script src="js/entities/Fighter.js"></script>
+    
+    <!-- UI Components -->
     <script src="js/ui/UIManager.js"></script>
     <script src="js/ui/CharacterSelect.js"></script>
     <script src="js/ui/ScreenManager.js"></script>
+    
+    <!-- Core engine (depends on above) -->
     <script src="js/core/GameStateManager.js"></script>
     <script src="js/core/GameEngine.js"></script>
+    
+    <!-- Main entry point (LAST) -->
     <script src="js/main.js"></script>
 </body>
 </html>

@@ -1,13 +1,9 @@
-/**
- * InputManager - Handles keyboard input with key mapping
- * Supports multiple control schemes for P1 and P2
- */
- class InputManager {
+class InputManager {
     constructor() {
         this.keys = new Map();
-        this.keyState = new Map();
+        this.justPressed = new Map(); // Separate map for just pressed
+        this.justReleased = new Map();
         
-        // Control mappings
         this.controls = {
             PLAYER1: {
                 left: 'KeyA',
@@ -30,64 +26,55 @@
     
     setupEventListeners() {
         window.addEventListener('keydown', (e) => {
+            // Prevent default for game keys
+            const gameKeys = ['KeyA', 'KeyD', 'KeyW', 'KeyF', 'KeyG', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'KeyK', 'KeyL'];
+            if (gameKeys.includes(e.code)) {
+                e.preventDefault();
+            }
+            
+            // If key wasn't pressed before, mark as just pressed
+            if (!this.keys.get(e.code)) {
+                this.justPressed.set(e.code, true);
+                console.log(`🔴 Key DOWN (first time): ${e.code}`);
+            }
             this.keys.set(e.code, true);
-            this.keyState.set(e.code, 'down');
         });
         
         window.addEventListener('keyup', (e) => {
             this.keys.set(e.code, false);
-            this.keyState.set(e.code, 'up');
+            this.justReleased.set(e.code, true);
+            console.log(`Key UP: ${e.code}`);
         });
     }
     
-    /**
-     * Check if a key is currently pressed
-     * @param {string} player - 'PLAYER1' or 'PLAYER2'
-     * @param {string} action - 'left', 'right', 'jump', 'attack', 'special'
-     * @returns {boolean}
-     */
     isPressed(player, action) {
         const keyCode = this.controls[player]?.[action];
         return keyCode ? this.keys.get(keyCode) === true : false;
     }
     
-    /**
-     * Check if a key was just pressed this frame (edge detection)
-     * @param {string} player 
-     * @param {string} action 
-     * @returns {boolean}
-     */
     isJustPressed(player, action) {
         const keyCode = this.controls[player]?.[action];
         if (!keyCode) return false;
-        const state = this.keyState.get(keyCode);
-        if (state === 'down') {
-            this.keyState.set(keyCode, 'held');
-            return true;
+        
+        const pressed = this.justPressed.get(keyCode) === true;
+        if (pressed && action === 'attack') {
+            console.log(`⚔️ ${player} JUST PRESSED ATTACK! Returning true`);
         }
-        return false;
+        return pressed;
     }
     
-    /**
-     * Update input states (call once per frame)
-     */
+    isJustReleased(player, action) {
+        const keyCode = this.controls[player]?.[action];
+        if (!keyCode) return false;
+        return this.justReleased.get(keyCode) === true;
+    }
+    
     update() {
-        // Reset edge detection for keys that are still held
-        for (let [key, state] of this.keyState) {
-            if (state === 'down' && this.keys.get(key)) {
-                this.keyState.set(key, 'held');
-            }
-            if (state === 'up') {
-                this.keyState.set(key, null);
-            }
-        }
+        // Clear just-pressed and just-released flags
+        this.justPressed.clear();
+        this.justReleased.clear();
     }
     
-    /**
-     * Get movement direction for player
-     * @param {string} player 
-     * @returns {number} -1 (left), 0, 1 (right)
-     */
     getMoveDirection(player) {
         let direction = 0;
         if (this.isPressed(player, 'left')) direction = -1;

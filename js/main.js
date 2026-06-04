@@ -68,6 +68,14 @@
         const canvas = document.getElementById('game-canvas');
         gameEngine = new GameEngine(canvas, assetManager, inputManager, uiManager, screenManager);
         
+        setTimeout(() => {
+            if (gameEngine) {
+                gameEngine.resizeCanvas();
+                gameEngine.render();
+                console.log('Canvas resized and rendered');
+            }
+        }, 100);
+        
         // Setup character select event
         characterSelect = new CharacterSelect();
         
@@ -84,14 +92,6 @@
             if (gameEngine) gameEngine.stop();
         });
         
-        document.addEventListener('gamePause', () => {
-            if (gameEngine) gameEngine.pause();
-        });
-        
-        document.addEventListener('gameResume', () => {
-            if (gameEngine) gameEngine.resume();
-        });
-        
         document.addEventListener('gameQuit', () => {
             if (gameEngine) {
                 gameEngine.stop();
@@ -103,6 +103,19 @@
             if (gameEngine) {
                 gameEngine.rematch();
                 gameEngine.start();
+            }
+        });
+
+        document.addEventListener('gameResume', () => {
+            if (gameEngine) {
+                gameEngine.resume();
+                screenManager.hideScreen('pause');
+            }
+        });
+        
+        document.addEventListener('gamePause', () => {
+            if (gameEngine) {
+                gameEngine.pause();
             }
         });
         

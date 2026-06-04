@@ -20,11 +20,11 @@
         
         // Sprite URLs (from GitHub - placeholder CDN)
         sprites: {
-            idle: 'https://raw.githubusercontent.com/your-repo/assets/main/shadow_idle.png',
-            walk: 'https://raw.githubusercontent.com/your-repo/assets/main/shadow_walk.png',
-            attack: 'https://raw.githubusercontent.com/your-repo/assets/main/shadow_attack.png',
-            hurt: 'https://raw.githubusercontent.com/your-repo/assets/main/shadow_hurt.png',
-            dead: 'https://raw.githubusercontent.com/your-repo/assets/main/shadow_dead.png'
+            idle: 'https://github.com/Gabryelf/Atlas-Assets/raw/main/docs/sets/fighting-pixel/player1/idle.png',
+            walk: 'https://github.com/Gabryelf/Atlas-Assets/raw/main/docs/sets/fighting-pixel/player1/walk1.png',
+            attack: 'https://github.com/Gabryelf/Atlas-Assets/raw/main/docs/sets/fighting-pixel/player1/attack2.png',
+            hurt: 'https://github.com/Gabryelf/Atlas-Assets/raw/main/docs/sets/fighting-pixel/player1/hurt1.png',
+            dead: 'https://github.com/Gabryelf/Atlas-Assets/raw/main/docs/sets/fighting-pixel/player1/dead3.png'
         },
         
         // Color theme for UI
@@ -45,11 +45,11 @@
         specialDamage: 30,
         
         sprites: {
-            idle: 'https://raw.githubusercontent.com/your-repo/assets/main/titan_idle.png',
-            walk: 'https://raw.githubusercontent.com/your-repo/assets/main/titan_walk.png',
-            attack: 'https://raw.githubusercontent.com/your-repo/assets/main/titan_attack.png',
-            hurt: 'https://raw.githubusercontent.com/your-repo/assets/main/titan_hurt.png',
-            dead: 'https://raw.githubusercontent.com/your-repo/assets/main/titan_dead.png'
+            idle: 'https://github.com/Gabryelf/Atlas-Assets/raw/main/docs/sets/fighting-pixel/player2/idle1.png',
+            walk: 'https://github.com/Gabryelf/Atlas-Assets/raw/main/docs/sets/fighting-pixel/player2/walk1.png',
+            attack: 'https://github.com/Gabryelf/Atlas-Assets/raw/main/docs/sets/fighting-pixel/player2/attack2.png',
+            hurt: 'https://github.com/Gabryelf/Atlas-Assets/raw/main/docs/sets/fighting-pixel/player2/hurt1.png',
+            dead: 'https://github.com/Gabryelf/Atlas-Assets/raw/main/docs/sets/fighting-pixel/player2/dead3.png'
         },
         
         themeColor: '#ff6a3a'
@@ -58,8 +58,8 @@
 
 // Background assets
 window.BackgroundAssets = {
-    bgFar: 'https://raw.githubusercontent.com/your-repo/assets/main/bg_far.png',
-    bgMid: 'https://raw.githubusercontent.com/your-repo/assets/main/bg_mid.png',
-    bgNear: 'https://raw.githubusercontent.com/your-repo/assets/main/bg_near.png',
-    ground: 'https://raw.githubusercontent.com/your-repo/assets/main/ground.png'
+    bgFar: 'https://github.com/Gabryelf/Atlas-Assets/raw/main/docs/sets/pixels-bg/Ruins-far.png',
+    bgMid: 'https://github.com/Gabryelf/Atlas-Assets/raw/main/docs/sets/pixels-bg/Ruins-middle.png',
+    bgNear: 'https://github.com/Gabryelf/Atlas-Assets/raw/main/docs/sets/pixels-bg/Ruins-near.png',
+    ground: 'https://github.com/Gabryelf/Atlas-Assets/raw/main/docs/sets/pixels-bg/Ruins-ground.png'
 };
