@@ -125,3 +125,58 @@
     font-size: 1.1rem;
     letter-spacing: 1px;
 }
+
+/* Settings Screen Styles */
+.settings-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(30,30,30,0.95) 100%);
+    border: 2px solid #ffd700;
+    border-radius: 20px;
+    padding: 40px;
+    min-width: 400px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+.settings-container h2 {
+    color: #ffd700;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.setting-item {
+    margin: 20px 0;
+    text-align: left;
+    color: white;
+}
+
+.setting-item label {
+    display: inline-block;
+    width: 120px;
+    font-size: 1.1rem;
+}
+
+.setting-item input[type="range"] {
+    width: 200px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.setting-item span {
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+}
+
+#settings-back-btn {
+    margin-top: 30px;
+    background: #ff4444;
+}
+
+#settings-back-btn:hover {
+    background: #cc0000;
+}
