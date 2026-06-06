@@ -2,7 +2,7 @@
  * Main Entry Point
  * Initializes all systems and coordinates the game startup
  */
- (function() {
+(function() {
     'use strict';
     
     // Core instances
@@ -12,6 +12,7 @@
     let screenManager = null;
     let characterSelect = null;
     let gameEngine = null;
+    let musicManager = null;
     
     // Register all assets for loading
     function registerAssets() {
@@ -49,8 +50,36 @@
         }
     }
     
+    // Initialize music controls
+    function initMusicControls() {
+        // Add mute button listener if exists
+        const muteBtn = document.getElementById('mute-music-btn');
+        if (muteBtn && musicManager) {
+            muteBtn.addEventListener('click', () => {
+                const isMuted = musicManager.toggleMute();
+                muteBtn.textContent = isMuted ? '🔇 MUSIC OFF' : '🔊 MUSIC ON';
+            });
+        }
+        
+        // Add volume slider if exists
+        const volumeSlider = document.getElementById('volume-slider');
+        if (volumeSlider && musicManager) {
+            volumeSlider.value = musicManager.getVolume() * 100;
+            volumeSlider.addEventListener('input', (e) => {
+                const volume = e.target.value / 100;
+                musicManager.setVolume(volume);
+            });
+        }
+    }
+    
     // Initialize game after loading
     async function initGame() {
+        // Initialize Music Manager first
+        musicManager = new MusicManager();
+        musicManager.init();
+        musicManager.setDefaultMusicUrl(GameConfig.DEFAULT_MUSIC_URL);
+        musicManager.setVolume(GameConfig.MUSIC_VOLUME);
+        
         assetManager = new AssetManager();
         registerAssets();
         
@@ -84,12 +113,15 @@
             gameEngine.initGame(p1, p2);
             gameEngine.start();
             screenManager.showScreen('game');
+            // Optional: Change to battle music if different track exists
+            // musicManager.playGameMusic();
         });
         
         document.addEventListener('backToMenu', () => {
             screenManager.showScreen('menu');
             characterSelect.reset();
             if (gameEngine) gameEngine.stop();
+            musicManager.playGameMusic();
         });
         
         document.addEventListener('gameQuit', () => {
@@ -97,6 +129,10 @@
                 gameEngine.stop();
                 characterSelect.reset();
             }
+            musicManager.fadeOut(1000);
+            setTimeout(() => {
+                musicManager.playGameMusic();
+            }, 1100);
         });
         
         document.addEventListener('gameRematch', () => {
@@ -111,13 +147,21 @@
                 gameEngine.resume();
                 screenManager.hideScreen('pause');
             }
+            musicManager.resumeBackgroundMusic();
         });
         
         document.addEventListener('gamePause', () => {
             if (gameEngine) {
                 gameEngine.pause();
             }
+            musicManager.pauseBackgroundMusic();
         });
+        
+        // Initialize music controls
+        initMusicControls();
+        
+        // Start menu music
+        musicManager.playGameMusic();
         
         // Hide loading, show menu
         setTimeout(() => {
