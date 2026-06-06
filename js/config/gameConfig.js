@@ -1,30 +1,37 @@
-window.GameConfig = {
+/**
+ * Game Configuration
+ * Centralized game settings
+ */
+const GameConfig = {
+    // Canvas settings
     CANVAS_WIDTH: 1280,
     CANVAS_HEIGHT: 720,
-    WORLD_WIDTH: 2000,
-    GROUND_Y: 550,
     
-    CAMERA_ZOOM_NORMAL: 1.0,
-    CAMERA_ZOOM_MIN: 0.6,
-    CAMERA_ZOOM_MAX: 1.0,
-    CAMERA_ZOOM_SPEED: 0.05,
-    CAMERA_LEASH_DISTANCE: 300,
-    
+    // Game settings
     GRAVITY: 0.8,
-    JUMP_POWER: -12,
-    BASE_SPEED: 5,
+    GROUND_Y: 600,
     
-    NORMAL_ATTACK_DAMAGE: 10,
-    NORMAL_ATTACK_COOLDOWN: 500, // 500ms = 0.5 секунды
-    
-    FIGHTER_WIDTH: 60,
-    FIGHTER_HEIGHT: 90,
-    
-    ANIMATION_FRAMERATE: 100,
-    
+    // Parallax layers
     PARALLAX_LAYERS: [
-        { speed: 0.1, image: null, width: 2048 },
-        { speed: 0.3, image: null, width: 2048 },
-        { speed: 0.6, image: null, width: 2048 }
-    ]
+        { speed: 0.2, y: 0 },      // Far background
+        { speed: 0.5, y: 0 },      // Mid background
+        { speed: 1.0, y: 0 }       // Near background
+    ],
+    
+    // Audio settings
+    MUSIC_VOLUME: 0.5,
+    SFX_VOLUME: 0.7,
+    DEFAULT_MUSIC_URL: 'https://raw.githubusercontent.com/Gabryelf/Atlas-Assets/main/assets/audio/music/loop/bandicam%202026-06-06%2009-43-06-730.mp3',
+    
+    // Combat settings
+    COMBO_WINDOW: 30, // frames
+    HIT_STUN_DURATION: 10,
+    
+    // UI settings
+    UI_UPDATE_INTERVAL: 16, // ms
+    
+    // Match settings
+    MAX_ROUNDS: 3,
+    ROUND_TIME: 99, // seconds
+    TIME_BETWEEN_ROUNDS: 3 // seconds
 };
