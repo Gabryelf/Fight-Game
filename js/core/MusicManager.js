@@ -9,8 +9,7 @@ class MusicManager {
         this.isMuted = false;
         this.volume = 0.5; // 0.0 to 1.0
         this.isLooping = true;
-        this.audioContext = null;
-        this.useWebAudio = false;
+        this.defaultMusicUrl = null;
         
         // Track list for future expansion
         this.tracks = {
@@ -31,18 +30,16 @@ class MusicManager {
             return false;
         }
         
-        // Try to use Web Audio API for better control (optional)
-        try {
-            window.AudioContext = window.AudioContext || window.webkitAudioContext;
-            if (window.AudioContext) {
-                this.audioContext = new AudioContext();
-                this.useWebAudio = true;
-            }
-        } catch (e) {
-            console.log('Web Audio API not available, using standard Audio');
-        }
-        
+        console.log('MusicManager initialized successfully');
         return true;
+    }
+    
+    /**
+     * Set default music URL from config
+     */
+    setDefaultMusicUrl(url) {
+        this.defaultMusicUrl = url;
+        console.log('Default music URL set:', url);
     }
     
     /**
@@ -55,6 +52,13 @@ class MusicManager {
             // Stop current music if playing
             this.stopBackgroundMusic();
             
+            if (!url) {
+                console.warn('No music URL provided');
+                return;
+            }
+            
+            console.log('Attempting to play music:', url);
+            
             this.isLooping = loop;
             
             // Simple approach using standard Audio
@@ -66,19 +70,23 @@ class MusicManager {
             await this.backgroundMusic.play();
             this.currentTrack = url;
             
-            console.log('Background music started');
+            console.log('Background music started successfully');
             
         } catch (error) {
             console.error('Failed to play background music:', error);
+            console.log('Note: Browsers may block autoplay. User interaction may be required.');
         }
     }
     
     /**
-     * Play music using your GitHub audio file
+     * Play game music from configured URL
      */
     playGameMusic() {
-        const musicUrl = 'https://raw.githubusercontent.com/Gabryelf/Atlas-Assets/main/assets/audio/music/loop/bandicam%202026-06-06%2009-43-06-730.mp3';
-        this.playBackgroundMusic(musicUrl, true);
+        if (this.defaultMusicUrl) {
+            this.playBackgroundMusic(this.defaultMusicUrl, true);
+        } else {
+            console.warn('No default music URL configured');
+        }
     }
     
     /**
@@ -90,6 +98,7 @@ class MusicManager {
             this.backgroundMusic.currentTime = 0;
             this.backgroundMusic = null;
             this.currentTrack = null;
+            console.log('Music stopped');
         }
     }
     
@@ -99,6 +108,7 @@ class MusicManager {
     pauseBackgroundMusic() {
         if (this.backgroundMusic && !this.backgroundMusic.paused) {
             this.backgroundMusic.pause();
+            console.log('Music paused');
         }
     }
     
@@ -108,6 +118,7 @@ class MusicManager {
     resumeBackgroundMusic() {
         if (this.backgroundMusic && this.backgroundMusic.paused) {
             this.backgroundMusic.play().catch(e => console.warn('Resume failed:', e));
+            console.log('Music resumed');
         }
     }
     
@@ -119,6 +130,14 @@ class MusicManager {
         if (this.backgroundMusic) {
             this.backgroundMusic.volume = this.isMuted ? 0 : this.volume;
         }
+        console.log('Volume set to:', this.volume);
+    }
+    
+    /**
+     * Get current volume
+     */
+    getVolume() {
+        return this.volume;
     }
     
     /**
@@ -129,6 +148,7 @@ class MusicManager {
         if (this.backgroundMusic) {
             this.backgroundMusic.volume = muted ? 0 : this.volume;
         }
+        console.log('Muted:', muted);
     }
     
     /**
