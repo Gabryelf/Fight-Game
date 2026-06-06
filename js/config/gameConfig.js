@@ -33,5 +33,11 @@ const GameConfig = {
     // Match settings
     MAX_ROUNDS: 3,
     ROUND_TIME: 99, // seconds
-    TIME_BETWEEN_ROUNDS: 3 // seconds
+    TIME_BETWEEN_ROUNDS: 3, // seconds
+    MAX_HEALTH: 120
 };
+
+// Export for use in other files
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = GameConfig;
+}
