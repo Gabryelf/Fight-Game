@@ -1,97 +1,93 @@
 /**
- * ScreenManager - Controls screen visibility and transitions
+ * Screen Manager - Handles screen transitions
  */
- class ScreenManager {
+class ScreenManager {
     constructor() {
         this.screens = {
             loading: document.getElementById('loading-screen'),
             menu: document.getElementById('menu-screen'),
+            settings: document.getElementById('settings-screen'),
             select: document.getElementById('select-screen'),
             game: document.getElementById('game-screen'),
             pause: document.getElementById('pause-screen'),
             victory: document.getElementById('victory-screen')
         };
         
-        this.setupMenuButtons();
+        this.currentScreen = 'loading';
+        this.setupEventListeners();
     }
     
-    setupMenuButtons() {
+    setupEventListeners() {
+        // Menu buttons
         const playBtn = document.getElementById('play-btn');
+        const settingsBtn = document.getElementById('settings-btn');
+        const creditsBtn = document.getElementById('credits-btn');
+        const settingsBackBtn = document.getElementById('settings-back-btn');
+        
         if (playBtn) {
             playBtn.addEventListener('click', () => this.showScreen('select'));
         }
         
-        const quitBtn = document.getElementById('quit-to-menu-btn');
-        if (quitBtn) {
-            quitBtn.addEventListener('click', () => {
-                this.showScreen('menu');
-                const quitEvent = new CustomEvent('gameQuit');
-                document.dispatchEvent(quitEvent);
+        if (settingsBtn) {
+            settingsBtn.addEventListener('click', () => this.showScreen('settings'));
+        }
+        
+        if (creditsBtn) {
+            creditsBtn.addEventListener('click', () => {
+                alert('Fighting Arena\nVersion 1.0\n\nCreated with passion for fighting game fans!');
             });
         }
         
-        const rematchBtn = document.getElementById('rematch-btn');
-        if (rematchBtn) {
-            rematchBtn.addEventListener('click', () => {
-                this.hideScreen('victory');
-                const rematchEvent = new CustomEvent('gameRematch');
-                document.dispatchEvent(rematchEvent);
-            });
+        if (settingsBackBtn) {
+            settingsBackBtn.addEventListener('click', () => this.showScreen('menu'));
         }
         
-        const victoryMenuBtn = document.getElementById('victory-menu-btn');
-        if (victoryMenuBtn) {
-            victoryMenuBtn.addEventListener('click', () => {
-                this.showScreen('menu');
-                const menuEvent = new CustomEvent('gameQuit');
-                document.dispatchEvent(menuEvent);
-            });
-        }
+        // Setup volume slider
+        const volumeSlider = document.getElementById('volume-slider');
+        const volumeValue = document.getElementById('volume-value');
         
-        // Pause button in game
-        const pauseGameBtn = document.getElementById('pause-btn');
-        if (pauseGameBtn) {
-            pauseGameBtn.addEventListener('click', () => {
-                const pauseEvent = new CustomEvent('gamePause');
-                document.dispatchEvent(pauseEvent);
-                this.showScreen('pause');
-            });
-        }
-        
-        const resumeBtn = document.getElementById('resume-btn');
-        if (resumeBtn) {
-            resumeBtn.addEventListener('click', () => {
-                this.hideScreen('pause');
-                const resumeEvent = new CustomEvent('gameResume');
-                document.dispatchEvent(resumeEvent);
+        if (volumeSlider && volumeValue) {
+            volumeSlider.addEventListener('input', (e) => {
+                const value = e.target.value;
+                volumeValue.textContent = `${value}%`;
+                if (window.musicManager) {
+                    window.musicManager.setVolume(value / 100);
+                }
             });
         }
     }
     
     showScreen(screenName) {
-        for (const [name, element] of Object.entries(this.screens)) {
-            if (element) {
-                if (name === screenName) {
-                    element.classList.add('active');
-                } else {
-                    element.classList.remove('active');
-                }
-            }
-        }
-    }
-    
-    hideScreen(screenName) {
-        const screen = this.screens[screenName];
-        if (screen) {
-            screen.classList.remove('active');
+        // Hide all screens
+        Object.values(this.screens).forEach(screen => {
+            if (screen) screen.classList.remove('active');
+        });
+        
+        // Show selected screen
+        if (this.screens[screenName]) {
+            this.screens[screenName].classList.add('active');
+            this.currentScreen = screenName;
+            console.log(`Screen changed to: ${screenName}`);
+        } else {
+            console.error(`Screen ${screenName} not found`);
         }
     }
     
     showLoading(show) {
         if (show) {
             this.showScreen('loading');
-        } else {
-            this.hideScreen('loading');
+        } else if (this.currentScreen === 'loading') {
+            this.showScreen('menu');
         }
+    }
+    
+    hideScreen(screenName) {
+        if (this.screens[screenName]) {
+            this.screens[screenName].classList.remove('active');
+        }
+    }
+    
+    getCurrentScreen() {
+        return this.currentScreen;
     }
 }
